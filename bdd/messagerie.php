@@ -37,7 +37,8 @@
 			<thead>
 				<tr>
 					<th>Pseudo</th>
-					<th>Messages</th>
+					<th>Message</th>
+					<th>Date</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -56,7 +57,7 @@
 
 				$request = $bdd->query('SELECT * FROM messagerie ORDER BY ID DESC');
 				while ($donnees = $request->fetch()) {
-					echo '<tr><td><strong>' . $donnees["pseudo"] . ' :</strong></td><td> ' . $donnees["message"] . '</td></tr>';
+					echo '<tr><td><strong>' . $donnees["pseudo"] . ' :</strong></td><td> ' . $donnees["message"] . '</td><td> ' . $donnees["date_creation"] . '</td></tr>';
 				}
 
 				$request->closeCursor();
