@@ -1,0 +1,72 @@
+body {
+	background-color: #0082af;
+	color: #ffffff;
+}
+#adrien {
+	font-size: 4em;
+}
+a {
+  color: @gray;
+  text-decoration: none;
+}
+  a:hover {
+    color: @link-hover-color;
+    text-decoration: none;
+ }
+ #debut {
+ 	margin-top: 70px;
+ }
+ .media-body p {
+ 	text-align: justify;
+ }
+#decouvrez {
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+.jumbotron {
+	text-align: justify;
+}
+.espace {
+	margin-top: 30px;
+}
+#portfolio a{
+  filter: grayscale(1);
+  margin: 15px;
+}
+#portfolio a:hover {
+  filter: grayscale(0);
+}
+#tontons {
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+.progress-bar-warning {
+	background-color: #9b9b9b;
+}
+.none {
+	list-style: none;
+}
+table {
+border-collapse: collapse;
+margin-top: 7px;
+}
+tr {
+padding: 10px;
+}
+td {
+padding: 10px;
+padding-left: 5px;
+padding-right: 5px;
+}
+.liste li {
+	padding: 7px;
+}
+.haut {
+	height: 30px
+}
+.jumbotron {
+	background-color: rgba(255,255,255,0.2);
+}
+a {
+	color: #fff;
+}

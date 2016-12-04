@@ -1,0 +1,21 @@
+body {
+	margin-left: 50px;
+	margin-top: 70px;
+	background-color: #f0f0f0;
+}
+
+form {
+	text-align:center;
+}
+h1 {
+	text-align:center;
+}
+
+.message {
+	width: 70%;
+	height: 300px;
+	margin-left: 15%;
+	border: 3px solid #000;
+	overflow-y: scroll;
+}
+
