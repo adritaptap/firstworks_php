@@ -57,9 +57,34 @@
 			{
 				die('Erreur : '.$e->getMessage());
 			}
+			// requete pour recuperer le nombre de billets
+			$request = $bdd->query('SELECT COUNT(*) AS nb_billets FROM blog');
+			$donnees = $request->fetch();
+			$totalMessage = $donnees['nb_billets'];
+			$messageParPage = 3;
+			$nbPage = ceil($totalMessage / $messageParPage);
+			$page = $_GET['page'];
 
+			if(isset($_GET['page'])) //POur rendre toute autre valeur egale a la page 1
+			{
+				$pageActuelle = intval($_GET['page']);
+			}
+			else 
+			{
+				$pageActuelle=1;   
+			}
 
-			$request = $bdd->query('SELECT ID, titre, message, DATE_FORMAT(date_creation, \'%d/%m/%Y à %Hh %imin %ss\') AS date_creation_fr FROM blog ORDER BY ID DESC LIMIT 0 , 5');
+			$pageAffichee = ($pageActuelle - 1) * $nbPage;
+
+			echo "<p>";
+			for ( $i = 1; $i <= $nbPage; $i++){
+				echo "<a class='btn btn-default' href='index.php?page=" . $i . "' />" . $i;
+
+			}
+			echo "</p>";
+			// requete pour afficher les billets
+			$request = $bdd->query('SELECT ID, titre, message, DATE_FORMAT(date_creation, \'%d/%m/%Y à %Hh %imin %ss\') AS date_creation_fr FROM blog ORDER BY ID DESC LIMIT ' . $pageAffichee . ', ' . $messageParPage . ' ');
+			$request->execute(array('page' => $page));
 			while ($donnees = $request->fetch()) {
 
 				echo '<div class="well well-lg">
@@ -71,6 +96,12 @@
 				<a class="btn btn-success btn-circle text-uppercase" data-toggle="collapse" href="#"><span class="glyphicon glyphicon-thumbs-up"></span> Like</a>            
 			</div>';
 		}
+
+		for ( $i = 1; $i <= $nbPage; $i++){
+			echo "<a href='index.php?page=" . $i . " class='btn btn-default'>";
+
+		}
+
 
 		$request->closeCursor();
 

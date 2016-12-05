@@ -31,22 +31,24 @@
 		}
 
 // Récupération de la News
-		$req = $bdd->prepare('SELECT ID, titre, message, DATE_FORMAT(date_creation, \'%d/%m/%Y à %H h %i min %s s\') AS date_creation_fr FROM blog WHERE ID = :numBlog');
+		$request = $bdd->prepare('SELECT ID, titre, message, DATE_FORMAT(date_creation, \'%d/%m/%Y à %H h %i min %s s\') AS date_creation_fr FROM blog WHERE ID = :numBlog');
 
-		$req->execute(array('numBlog' => $numBlog));
-		$donnees = $req->fetch();
-		if (isset($donnees['ID'])) {
+		$request->execute(array('numBlog' => $numBlog));
+		$donnees = $request->fetch();
+		if (!empty($donnees['ID'])) {
 			echo '<div class="well well-lg news">
 			<h4 class="media-heading text reviews">' . $donnees["titre"] . '</h4>
 			<div class="media-date text reviews list-inline">' . $donnees["date_creation_fr"] . '</div>
 			<p class="media-comment">' . $donnees["message"] . '</p>     
 		</div>';
 
-		$req->closeCursor();
+		$request->closeCursor();
+
 		?>
+
 		<h1>Commentaires</h1>
 
-		<form action="commentaires_post" method="post" class="form-horizontal">'
+		<form action="commentaires_post" method="post" class="form-horizontal">
 			<div class="form-group">
 				<label for="message">Message
 					<input type="text" name="message" class="form-control"/>
@@ -73,11 +75,11 @@
 
 			<?php
 
-			$req = $bdd->prepare('SELECT auteur, message, DATE_FORMAT(date_creation, \'%d/%m/%Y à %Hh%imin%ss\') AS date_creation_fr FROM commentaire WHERE id_blog = :numBlog2 ORDER BY date_creation');
+			$request = $bdd->prepare('SELECT auteur, message, DATE_FORMAT(date_creation, \'%d/%m/%Y à %Hh%imin%ss\') AS date_creation_fr FROM commentaire WHERE id_blog = :numBlog2 ORDER BY date_creation');
 
-			$req->execute(array('numBlog2' => $numBlog));
+			$request->execute(array('numBlog2' => $numBlog));
 
-			while ($donnees = $req->fetch()) {
+			while ($donnees = $request->fetch()) {
 
 				echo '<div class="well well-lg">
 				<div class="media-date text reviews list-inline"><strong> ' . $donnees["auteur"] . ' </strong> ' . $donnees["date_creation_fr"] . '</div>
@@ -85,7 +87,7 @@
 			</div>';
 		}
 
-		$req->closeCursor();
+		$request->closeCursor();
 	}
 	else
 	{
