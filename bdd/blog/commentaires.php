@@ -13,10 +13,12 @@
 </head>
 
 <body>
+
 	<div class="container">
+		<p><a href="index.php" class="btn btn-success">Retour</a></p>
 		<?php
 
-		$id_blog = $_GET['blog'];
+		$numBlog = $_GET['numBlog'];
 // Connexion à la base de données
 		try
 		{
@@ -27,10 +29,10 @@
 			die('Erreur : '.$e->getMessage());
 		}
 
-// Récupération du billet
-		$req = $bdd->prepare('SELECT ID, titre, message, DATE_FORMAT(date_creation, \'%d/%m/%Y à %Hh %imin %ss\') AS date_creation_fr FROM blog WHERE ID = :id_blog');
+// Récupération de la News
+		$req = $bdd->prepare('SELECT ID, titre, message, DATE_FORMAT(date_creation, \'%d/%m/%Y à %H h %i min %s s\') AS date_creation_fr FROM blog WHERE ID = :numBlog');
 
-		$req->execute(array('id_blog' => $id_blog));
+		$req->execute(array('numBlog' => $numBlog));
 		$donnees = $req->fetch();
 
 		echo '<div class="well well-lg news">
@@ -39,11 +41,11 @@
 		<p class="media-comment">' . $donnees["message"] . '</p>     
 	</div>';
 
-	
+	$req->closeCursor();
 	?>
 	<h1>Commentaires</h1>
 
-<!-- 	<form action="messagerie_post2.php" method="post" class="form-horizontal">
+	<form action="commentaires_post" method="post" class="form-horizontal">'
 		<div class="form-group">
 			<label for="message">Message
 				<input type="text" name="message" class="form-control"/>
@@ -54,11 +56,11 @@
 				<input type="text" name="auteur" class="form-control"/>
 			</label>
 		</div>
+		<?php echo'<input type="hidden" name="id_blog" value="' . $numBlog . '"/>';  ?>
 		<div class="form-group">
 			<button type="submit" value="envoyer"  class="btn btn-sm btn-success text-uppercase"><span class="glyphicon glyphicon-share-alt"></span> Commenter !</button>
 		</div>
 	</form>
- -->
 
 
 
@@ -70,15 +72,14 @@
 
 		<?php
 
-		$req->closeCursor();
-		$id_blog = $_GET['blog'];
-		$req = $bdd->query('SELECT ID, message, auteur, DATE_FORMAT(date_creation, \'%d/%m/%Y à %Hh %imin %ss\') AS date_creation_fr FROM Commentaire WHERE id_blog  ORDER BY date_creation_fr');
+		$req = $bdd->prepare('SELECT auteur, message, DATE_FORMAT(date_creation, \'%d/%m/%Y à %Hh%imin%ss\') AS date_creation_fr FROM commentaire WHERE id_blog = :numBlog2 ORDER BY date_creation');
 
+		$req->execute(array('numBlog2' => $numBlog));
 
 		while ($donnees = $req->fetch()) {
 
 			echo '<div class="well well-lg">
-			<div class="media-date text reviews list-inline"><strong> ' . $donnees['auteur'] . ' </strong> ' . $donnees["date_creation_fr"] . '</div>
+			<div class="media-date text reviews list-inline"><strong> ' . $donnees["auteur"] . ' </strong> ' . $donnees["date_creation_fr"] . '</div>
 			<p class="media-comment">' . $donnees["message"] . '</p>           
 		</div>';
 	}
@@ -94,4 +95,4 @@
 
 
 </body>
-</html>
+</html> 

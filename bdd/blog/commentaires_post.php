@@ -1,7 +1,7 @@
 <?php
 
 // Effectuer ici la requête qui insère le message
-$id_blog = htmlspecialchars($_GET['blog']);
+$id_blog = htmlspecialchars($_POST['id_blog']);
 $message = htmlspecialchars($_POST['message']);
 $auteur = strip_tags($_POST['auteur']); 
 
@@ -25,6 +25,6 @@ $req->execute(array(
 
 
 // Puis rediriger vers minichat.php comme ceci :
-header('Location: commentaires.php');
+header('Location: commentaires.php?numBlog=' . $id_blog );
 
 ?>

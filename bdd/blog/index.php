@@ -67,7 +67,7 @@
 				<div class="media-date text reviews list-inline">' . $donnees["date_creation_fr"] . '</div>
 				<p class="media-comment">' . $donnees["message"] . '</p>
 				<a class="btn btn-info btn-circle text-uppercase" href="#" id="reply"><span class="glyphicon glyphicon-share-alt"></span> Répondre</a>
-				<a class="btn btn-warning btn-circle text-uppercase" data-toggle="collapse" href="commentaires.php?blog=' . $donnees["ID"] . '"><span class="glyphicon glyphicon-comment"></span>commentaires</a>
+				<a class="btn btn-warning btn-circle text-uppercase" data-toggle="collapse" href="commentaires.php?numBlog=' . $donnees["ID"] . '"><span class="glyphicon glyphicon-comment"></span>commentaires</a>
 				<a class="btn btn-success btn-circle text-uppercase" data-toggle="collapse" href="#"><span class="glyphicon glyphicon-thumbs-up"></span> Like</a>            
 			</div>';
 		}
